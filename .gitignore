@@ -2,3 +2,5 @@ node_modules/
 dist/
 .DS_Store
 *.local
+*.mp3
+!public/music/bgm.mp3
