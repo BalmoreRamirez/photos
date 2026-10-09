@@ -129,8 +129,7 @@ watch(() => props.memory.id, () => {
       </button>
 
       <button class="memory__nav-next" @click="emit('next')" aria-label="Siguiente recuerdo">
-        Siguiente
-        <ChevronRight :size="16" />
+        <ChevronRight :size="20" />
       </button>
     </nav>
   </section>
@@ -146,7 +145,7 @@ watch(() => props.memory.id, () => {
   justify-content: center;
   position: relative;
   background: var(--color-bg);
-  padding-bottom: 4.5rem;
+  padding-bottom: 1rem;
 }
 
 .memory__counter {
@@ -457,71 +456,48 @@ watch(() => props.memory.id, () => {
 /* ── Navigation ──────────────────────────────────────────────────── */
 .memory__nav {
   position: fixed;
-  bottom: 0;
+  top: 50%;
   left: 0;
   right: 0;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.8rem 1.4rem 1.2rem;
+  padding: 0 0.6rem;
+  pointer-events: none;
 }
 
-.memory--full .memory__nav {
-  background: transparent;
-}
-
-.memory--cinematic .memory__nav,
-.memory--polaroid .memory__nav,
-.memory--letter .memory__nav {
-  background: linear-gradient(to top, var(--color-bg) 55%, transparent);
-}
-
-.memory__nav-prev {
-  width: 36px;
-  height: 36px;
+.memory__nav-prev,
+.memory__nav-next {
+  pointer-events: auto;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(6px);
-  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, background 0.2s;
+  flex-shrink: 0;
 }
 
 .memory--cinematic .memory__nav-prev,
+.memory--cinematic .memory__nav-next,
 .memory--polaroid .memory__nav-prev,
-.memory--letter .memory__nav-prev {
+.memory--polaroid .memory__nav-next,
+.memory--letter .memory__nav-prev,
+.memory--letter .memory__nav-next {
   border-color: var(--color-border);
-  background: var(--color-surface);
+  background: rgba(255, 252, 247, 0.82);
   color: var(--color-text-soft);
 }
 
 .memory__nav-prev:disabled {
-  opacity: 0.25;
+  opacity: 0.2;
   cursor: default;
-}
-
-.memory__nav-next {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-  padding-bottom: 2px;
-  transition: opacity 0.2s;
-}
-
-.memory--cinematic .memory__nav-next,
-.memory--polaroid .memory__nav-next,
-.memory--letter .memory__nav-next {
-  color: var(--color-accent);
-  border-bottom-color: var(--color-accent);
 }
 
 .memory__nav-prev:hover:not(:disabled),
