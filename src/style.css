@@ -1,0 +1,81 @@
+/* ── Design tokens ──────────────────────────────────────────────────── */
+:root {
+  --color-bg: #F5EFE4;
+  --color-surface: #FFFCF7;
+  --color-text: #49352B;
+  --color-text-soft: #8B7564;
+  --color-accent: #A96D58;
+  --color-accent-rose: #C98C91;
+  --color-border: #E7D9CA;
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --radius-card: 12px;
+  --shadow-card: 0 4px 24px rgba(73, 53, 43, 0.10);
+  --shadow-polaroid: 0 8px 32px rgba(73, 53, 43, 0.14);
+
+  --transition-page: 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Reset ──────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* ── Typography helpers ─────────────────────────────────────────────── */
+.serif { font-family: var(--font-serif); }
+
+/* ── Page transitions ───────────────────────────────────────────────── */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity var(--transition-page), transform var(--transition-page);
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
