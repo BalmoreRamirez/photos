@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { BookOpen, QrCode } from '@lucide/vue'
+import { BookOpen } from '@lucide/vue'
 
 import StoryCover from '@/components/StoryCover.vue'
 import ChapterIntro from '@/components/ChapterIntro.vue'
@@ -9,9 +9,12 @@ import EmotionalPauseScene from '@/components/EmotionalPauseScene.vue'
 import FinalLetter from '@/components/FinalLetter.vue'
 import StoryProgress from '@/components/StoryProgress.vue'
 import ChapterIndex from '@/components/ChapterIndex.vue'
-import QRView from '@/components/QRView.vue'
+import QRPrintPage from '@/components/QRPrintPage.vue'
 
 import { useStory } from '@/composables/useStory'
+
+// Si la URL tiene ?qr, mostrar la página de impresión en lugar de la historia
+const isPrintMode = new URLSearchParams(window.location.search).has('qr')
 
 const {
   chapters,
@@ -32,7 +35,6 @@ const {
 } = useStory()
 
 const showIndex = ref(false)
-const showQR = ref(false)
 
 const showProgress = computed(
   () => currentScene.value?.type !== 'cover' && currentScene.value?.type !== 'letter',
@@ -46,8 +48,11 @@ const chapterIndex = computed(() => {
 </script>
 
 <template>
-  <div class="app">
-    <!-- Progress bar -->
+  <!-- Modo impresión QR -->
+  <QRPrintPage v-if="isPrintMode" />
+
+  <!-- Historia principal -->
+  <div v-else class="app">
     <StoryProgress
       v-if="showProgress"
       :progress="progress"
@@ -56,17 +61,12 @@ const chapterIndex = computed(() => {
       :total="totalScenes"
     />
 
-    <!-- Top controls -->
     <div v-if="showProgress" class="app__controls">
       <button class="app__ctrl-btn" @click="showIndex = true" aria-label="Capítulos">
         <BookOpen :size="16" />
       </button>
-      <button class="app__ctrl-btn" @click="showQR = true" aria-label="Código QR">
-        <QrCode :size="16" />
-      </button>
     </div>
 
-    <!-- Scene transitions -->
     <Transition name="page" mode="out-in">
       <div :key="currentIndex" class="app__scene">
         <StoryCover
@@ -106,7 +106,6 @@ const chapterIndex = computed(() => {
       </div>
     </Transition>
 
-    <!-- Overlays -->
     <ChapterIndex
       v-if="showIndex"
       :chapters="chapters"
@@ -114,8 +113,6 @@ const chapterIndex = computed(() => {
       @close="showIndex = false"
       @go-to-chapter="(id) => { goToChapter(id); showIndex = false }"
     />
-
-    <QRView :visible="showQR" @close="showQR = false" />
   </div>
 </template>
 
