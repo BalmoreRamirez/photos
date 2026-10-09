@@ -10,6 +10,7 @@ import FinalLetter from '@/components/FinalLetter.vue'
 import StoryProgress from '@/components/StoryProgress.vue'
 import ChapterIndex from '@/components/ChapterIndex.vue'
 import QRPrintPage from '@/components/QRPrintPage.vue'
+import AudioPlayer from '@/components/AudioPlayer.vue'
 
 import { useStory } from '@/composables/useStory'
 
@@ -35,6 +36,13 @@ const {
 } = useStory()
 
 const showIndex = ref(false)
+const audioPlayer = ref<InstanceType<typeof AudioPlayer> | null>(null)
+
+function onStoryStart() {
+  goNext()
+  // Iniciamos el audio aprovechando el gesto del usuario
+  setTimeout(() => audioPlayer.value?.init(), 50)
+}
 
 const showProgress = computed(
   () => currentScene.value?.type !== 'cover' && currentScene.value?.type !== 'letter',
@@ -71,7 +79,7 @@ const chapterIndex = computed(() => {
       <div :key="currentIndex" class="app__scene">
         <StoryCover
           v-if="currentScene.type === 'cover'"
-          @start="goNext"
+          @start="onStoryStart"
         />
 
         <ChapterIntro
@@ -113,6 +121,8 @@ const chapterIndex = computed(() => {
       @close="showIndex = false"
       @go-to-chapter="(id) => { goToChapter(id); showIndex = false }"
     />
+
+    <AudioPlayer ref="audioPlayer" />
   </div>
 </template>
 
