@@ -14,7 +14,7 @@ onMounted(() => {
     <div class="cover__deco cover__deco--top" aria-hidden="true">✦</div>
 
     <div class="cover__content">
-      <p class="cover__subtitle serif">Tengo algo bonito que quiero recordarte...</p>
+      <p class="cover__subtitle serif">Tengo algo bonito que quiero mostrarte...</p>
 
       <div class="cover__heart" aria-hidden="true">
         <svg viewBox="0 0 80 72" fill="none" xmlns="http://www.w3.org/2000/svg">

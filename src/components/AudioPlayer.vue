@@ -4,7 +4,6 @@ import { ref, onUnmounted } from 'vue'
 // El audio arranca cuando el componente se monta (ya hubo gesto del usuario)
 const audio = ref<HTMLAudioElement | null>(null)
 const playing = ref(false)
-const mounted = ref(false)
 
 function init() {
   if (audio.value) return
@@ -17,11 +16,8 @@ function init() {
     playing.value = true
     fadeIn()
   }).catch(() => {
-    // El navegador bloqueó el autoplay: mostramos el botón sin reproducir
     playing.value = false
   })
-
-  mounted.value = true
 }
 
 function fadeIn() {

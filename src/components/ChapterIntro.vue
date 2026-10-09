@@ -10,7 +10,7 @@ defineEmits<{ next: [] }>()
 </script>
 
 <template>
-  <section class="chapter" aria-label="`Capítulo ${chapterIndex + 1}`">
+  <section class="chapter" :aria-label="`Capítulo ${chapterIndex + 1}`">
     <div class="chapter__inner">
       <span class="chapter__number">{{ String(chapterIndex + 1).padStart(2, '0') }}</span>
       <div class="chapter__divider" aria-hidden="true" />
@@ -41,6 +41,12 @@ defineEmits<{ next: [] }>()
   text-align: center;
   gap: 1.2rem;
   max-width: 300px;
+  animation: fadeUp 0.7s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .chapter__number {

@@ -41,6 +41,12 @@ defineEmits<{ next: []; prev: [] }>()
   text-align: center;
   gap: 1.5rem;
   max-width: 280px;
+  animation: fadeUp 0.8s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .pause__ornament {
