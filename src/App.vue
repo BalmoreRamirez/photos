@@ -2,6 +2,28 @@
 import { ref, computed } from 'vue'
 import { BookOpen } from '@lucide/vue'
 
+// ── Swipe navigation ─────────────────────────────────────────────────
+let touchStartX = 0
+let touchStartY = 0
+
+function onTouchStart(e: TouchEvent) {
+  touchStartX = e.touches[0].clientX
+  touchStartY = e.touches[0].clientY
+}
+
+function onTouchEnd(e: TouchEvent) {
+  const dx = e.changedTouches[0].clientX - touchStartX
+  const dy = e.changedTouches[0].clientY - touchStartY
+  if (Math.abs(dx) < Math.abs(dy) || Math.abs(dx) < 48) return
+  if (dx < 0) {
+    // Deslizar a la izquierda → siguiente
+    if (currentScene.value?.type !== 'cover') goNext()
+  } else {
+    // Deslizar a la derecha → anterior
+    goPrev()
+  }
+}
+
 import StoryCover from '@/components/StoryCover.vue'
 import ChapterIntro from '@/components/ChapterIntro.vue'
 import MemoryScene from '@/components/MemoryScene.vue'
@@ -76,7 +98,12 @@ const chapterIndex = computed(() => {
     </div>
 
     <Transition name="page" mode="out-in">
-      <div :key="currentIndex" class="app__scene">
+      <div
+        :key="currentIndex"
+        class="app__scene"
+        @touchstart.passive="onTouchStart"
+        @touchend.passive="onTouchEnd"
+      >
         <StoryCover
           v-if="currentScene.type === 'cover'"
           @start="onStoryStart"
@@ -138,16 +165,16 @@ const chapterIndex = computed(() => {
 
 .app__controls {
   position: fixed;
-  top: 14px;
-  right: 12px;
+  top: max(14px, calc(env(safe-area-inset-top) + 6px));
+  right: max(12px, env(safe-area-inset-right));
   z-index: 40;
   display: flex;
   gap: 0.4rem;
 }
 
 .app__ctrl-btn {
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: rgba(255, 252, 247, 0.75);
   backdrop-filter: blur(8px);

@@ -55,7 +55,7 @@ const emit = defineEmits<{
   background: var(--color-surface);
   border-radius: 16px 16px 0 0;
   width: 100%;
-  padding: 1.5rem 1.5rem 2.5rem;
+  padding: 1.5rem 1.5rem calc(2.5rem + env(safe-area-inset-bottom));
   max-height: 80dvh;
   overflow-y: auto;
 }
@@ -74,8 +74,8 @@ const emit = defineEmits<{
 }
 
 .index__close {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1px solid var(--color-border);
   display: flex;

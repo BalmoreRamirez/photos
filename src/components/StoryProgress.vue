@@ -44,6 +44,6 @@ defineProps<{
   text-transform: uppercase;
   color: var(--color-text-soft);
   text-align: center;
-  padding: 6px 16px 0;
+  padding: max(6px, calc(env(safe-area-inset-top) + 4px)) 16px 0;
 }
 </style>

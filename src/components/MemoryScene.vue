@@ -470,8 +470,8 @@ watch(() => props.memory.id, () => {
 .memory__nav-prev,
 .memory__nav-next {
   pointer-events: auto;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.28);
   background: rgba(255, 255, 255, 0.15);
@@ -482,6 +482,7 @@ watch(() => props.memory.id, () => {
   justify-content: center;
   transition: opacity 0.2s, background 0.2s;
   flex-shrink: 0;
+  touch-action: manipulation;
 }
 
 .memory--cinematic .memory__nav-prev,

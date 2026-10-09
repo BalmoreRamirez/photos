@@ -77,7 +77,7 @@ defineEmits<{ next: []; prev: [] }>()
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.5rem calc(1rem + env(safe-area-inset-bottom));
   background: linear-gradient(to top, var(--color-surface) 60%, transparent);
 }
 

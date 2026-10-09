@@ -97,8 +97,8 @@ onUnmounted(() => {
 <style scoped>
 .audio-btn {
   position: fixed;
-  bottom: 1.2rem;
-  right: 1.2rem;
+  bottom: calc(1.2rem + env(safe-area-inset-bottom));
+  right: max(1.2rem, env(safe-area-inset-right));
   z-index: 60;
   width: 36px;
   height: 36px;

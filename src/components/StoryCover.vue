@@ -116,6 +116,8 @@ onMounted(() => {
   color: var(--color-accent);
   background: transparent;
   transition: background 0.25s, color 0.25s;
+  touch-action: manipulation;
+  min-height: 44px;
 }
 
 .cover__btn:hover,
